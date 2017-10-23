@@ -28,7 +28,7 @@ double czasozajmowacz(){
 void * zadanie_watku (void * arg_wsk)
 {
 	int przeslane_id = *((int*)arg_wsk);
-	printf("[system tid: %d] przeslane id: %d\n", pthread_self(), przeslane_id);
+	printf("[system tid: %lu] przeslane id: %d\n", pthread_self(), przeslane_id);
 
 	return(NULL);
 }
@@ -46,21 +46,10 @@ int main()
 		pthread_create(&tid[i], NULL, zadanie_watku, (void*)&i);
 		wait(1);
 	}
-	
+
 	for(i = 0; i < size; i++) {
 		pthread_join(tid[i], &wynik);
-		//if (wynik == PTHREAD_CANCELED)
-		//printf("\twatek glowny: watek potomny zostal zabity\n");
-		//else
-		//printf("\twatek glowny: watek potomny NIE zostal zabity - blad\n");
 	}
 
-	
-	
-	
-	printf("\twatek glowny: koniec pracy, watek odlaczony pracuje dalej\n");
 	pthread_exit(NULL); // co stanie sie gdy uzyjemy exit(0)?
 }
-
-
-

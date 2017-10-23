@@ -33,18 +33,27 @@ double czasozajmowacz(){
 
 void * zadanie_watku (void * arg_wsk)
 {
+	// Pobranie struktury globalnej
 	MojaStruktura* przeslana_struktura = (MojaStruktura*)arg_wsk;
-	printf("[system tid: %u] liczba: %d, napis: %s, znak: %c\n", pthread_self(), przeslana_struktura->liczba, przeslana_struktura->napis, przeslana_struktura->znak);
-	przeslana_struktura->napis = "Nowy napis";
+
+	//Wyswietlenie struktury globalnej
+	printf("[system tid: %lu] [gl] liczba: %d, napis: %s, znak: %c\n", pthread_self(), przeslana_struktura->liczba, przeslana_struktura->napis, przeslana_struktura->znak);
+
+	// Zmiana struktury globalnej
+	przeslana_struktura->napis = "zmiana globalna";
 	przeslana_struktura->znak = 'd';
 	przeslana_struktura->liczba = 255;
-	
+
+	// Tworzenie struktury lokalnej
 	MojaStruktura lokalna_struktura = { przeslana_struktura->liczba, przeslana_struktura->napis, przeslana_struktura->znak };
-	printf("[system tid: %u] liczba: %d napis: %s, znak: %c //local\n", pthread_self(), lokalna_struktura.liczba, lokalna_struktura.napis, lokalna_struktura.znak);
-	
+
+	//Zmiana struktury lokalnej
 	lokalna_struktura.napis = "zmiana lokalna";
 	lokalna_struktura.liczba = 1111;
 	lokalna_struktura.znak = 'f';
+	// Wyswietlenie struktury lokalnej
+
+	printf("[system tid: %lu] [lc] liczba: %d napis: %s, znak: %c\n", pthread_self(), lokalna_struktura.liczba, lokalna_struktura.napis, lokalna_struktura.znak);
 
 	return(NULL);
 }
@@ -57,28 +66,19 @@ int main()
 	void *wynik;
 	int i;
 	MojaStruktura ms = {16, "Mikolaj Stepniewski", 'c'};
-	
+
 	printf("Przed utworzeniem watkow:\n  liczba: %d, napis: %s, znak: %c\n\n", ms.liczba, ms.napis, ms.znak);
-	
-	
 
 	//Wątek przyłączalny
 	for(i = 0; i < size; i++) {
 		pthread_create(&tid[i], NULL, zadanie_watku, (void*)&ms);
 		wait(1);
 	}
-	
+
+	// Czekanie na zakonczenie watkow
 	for(i = 0; i < size; i++) {
 		pthread_join(tid[i], &wynik);
-		
 	}
 
-	
-	
-	
-	
 	pthread_exit(NULL); // co stanie sie gdy uzyjemy exit(0)?
 }
-
-
-
