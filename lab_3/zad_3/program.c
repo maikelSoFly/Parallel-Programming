@@ -7,13 +7,13 @@ int zmienna_wspolna=0;
 #define WYMIAR 1000
 #define ROZMIAR WYMIAR*WYMIAR
 double a[ROZMIAR],b[ROZMIAR],c[ROZMIAR];
+pthread_mutex_t lock;
 
 typedef struct {
 	int liczba;
 	char* napis;
 	char znak;
 } MojaStruktura;
-
 
 double czasozajmowacz(){
   int i, j, k;
@@ -33,6 +33,8 @@ double czasozajmowacz(){
 
 void * zadanie_watku (void * arg_wsk)
 {
+	pthread_mutex_lock(&lock);
+
 	// Pobranie struktury globalnej
 	MojaStruktura* przeslana_struktura = (MojaStruktura*)arg_wsk;
 
@@ -43,6 +45,8 @@ void * zadanie_watku (void * arg_wsk)
 	przeslana_struktura->napis = "zmiana globalna";
 	przeslana_struktura->znak = 'd';
 	przeslana_struktura->liczba = 255;
+
+	pthread_mutex_unlock(&lock);
 
 	// Tworzenie struktury lokalnej
 	MojaStruktura lokalna_struktura = { przeslana_struktura->liczba, przeslana_struktura->napis, przeslana_struktura->znak };
@@ -68,6 +72,12 @@ int main()
 	MojaStruktura ms = {16, "Mikolaj Stepniewski", 'c'};
 
 	printf("Przed utworzeniem watkow:\n  liczba: %d, napis: %s, znak: %c\n\n", ms.liczba, ms.napis, ms.znak);
+
+	if(pthread_mutex_init(&lock, NULL) != 0) {
+		printf("Mutex init failed!\n");
+	} else {
+		printf("Mutex created\n");
+	}
 
 	//Wątek przyłączalny
 	for(i = 0; i < size; i++) {
