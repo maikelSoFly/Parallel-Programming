@@ -59,7 +59,7 @@ main() {
 
     for(i = 0; i < pub.num_client; i++) {
         pthread_join(pub.clients[i], NULL);
-        printf("\tThread %lu joined\n", (unsigned long) pub.clients[i]);
+        printf("[🔸MAIN THREAD🔸]\t 🔗 thread %lu joined\n", (unsigned long) pub.clients[i]);
     }
 
 
@@ -67,7 +67,7 @@ main() {
         if(pub.mugs[i] == false) ctr_return_mugs++;
     }
     printf("\nMugs state:\t %d/%d returned\n", ctr_return_mugs, pub.num_mug);
-    printf("Beers drinked: %d\n", pub.ctr_beers_drinked);
+    printf("Beers drinked:\t %d\n\n", pub.ctr_beers_drinked);
 
     exit(0);
 }
@@ -89,7 +89,7 @@ void * client_thread(void * arg_ptr) {
             for(i = 0; i < pub.num_mug; i++) {
 
                 if(pub.mugs[i] == false) {
-                    printf("[Klient o id %d]\t ✅ bierze kufel nr. %d\n", id, i);
+                    printf("[ Klient o id %d ]\t ✅ bierze kufel nr. %d\n", id, i);
                     pub.mugs[i] = true;
                     my_mug = &pub.mugs[i];
                     got_mug = true;
@@ -98,7 +98,7 @@ void * client_thread(void * arg_ptr) {
             }
             pthread_mutex_unlock(&lock);
 
-            if(!got_mug) printf("[Klient o id %d]\t ⏱  czeka na kufel\n", id);
+            if(!got_mug) printf("[ Klient o id %d ]\t 💤 czeka na kufel\n", id);
             usleep(400000);
         }
 
@@ -107,32 +107,33 @@ void * client_thread(void * arg_ptr) {
                 status = pthread_mutex_trylock(&pub.taps[i]);
                 if (status == 0) {
                     got_tap = true;
-                    printf("[Klient o id %d]\t 🚰 nalewa piwo z kranu nr. %d\n", id, i);
+                    printf("[ Klient o id %d ]\t 🚰 nalewa piwo z kranu nr. %d\n", id, i);
                     sleep(4);
                     pthread_mutex_unlock(&pub.taps[i]);
                     if(got_tap) break;
                 }
             }
             if(!got_tap) {
-                printf("[Klient o id %d]\t ⏱  czeka na kran\n", id);
+                printf("[ Klient o id %d ]\t 💤 czeka na kran\n", id);
                 usleep(500000);
             }
         }
         got_tap = false;
 
-        printf("[Klient o id %d]\t 🍺 pije piwo\n", id);
+        printf("[ Klient o id %d ]\t 🍺 pije piwo\n", id);
         sleep(2);
-        pub.ctr_beers_drinked++;
 
-        printf("[Klient o id %d]\t ↩️  odnosi pusty kufel\n", id);
+
+        printf("[ Klient o id %d ]\t ↩️  odnosi pusty kufel\n", id);
         pthread_mutex_lock(&lock);
+        pub.ctr_beers_drinked++;
         *my_mug = false;
         got_mug = false;
         pthread_mutex_unlock(&lock);
         sleep(1);
     }
 
-    printf("[Klient o id %d]\t 🚶 wychodzi z baru\n", id);
+    printf("[ Klient o id %d ]\t 🚶 wychodzi z baru\n", id);
 
     return(NULL);
 }
