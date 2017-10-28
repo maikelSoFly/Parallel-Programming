@@ -4,91 +4,110 @@
 #include<pthread.h>
 #include <stdbool.h>
 
-#define KUFEL_SIZE = 4;
+struct Pub {
+    int num_mug;
+    int num_client;
+    int num_tap;
+    bool *mugs;
+    bool *taps;
+    pthread_t *clients;
+    int *client_ids;
+} pub;
+
 pthread_mutex_t lock;
 
-void * watek_klient (void * arg);
+void * client_thread( void * arg);
 
 main() {
-    int l_kufel = 3;
-    int l_klient = 8;
+    int *client_iid;
     int i;
-    pthread_t tid[l_klient];
-    bool kufle[l_kufel];
+    int n_c, n_m, n_t;
+    char *s;
 
-    for (i = 0; i < l_kufel; i++) {
-        kufle[i] = true;
+    printf("Podaj liczbe klientow: "); scanf("%d", &n_c);
+    printf("Podaj liczbe kufli: "); scanf("%d", &n_m);
+    printf("Podaj liczbe kranow: "); scanf("%d", &n_t);
+
+    pub.num_client = n_c;
+    pub.num_mug = n_m;
+    pub.num_tap = n_t;
+
+    pub.clients = (pthread_t *) malloc(n_c * sizeof(pthread_t));
+    pub.client_ids = (int *) malloc(n_c * sizeof(int));
+    for(i = 0; i < n_c; i++) pub.client_ids[i] = i;
+    pub.mugs = (bool *) malloc(n_c * sizeof(bool));
+    pub.taps = (bool *) malloc(n_c * sizeof(bool));
+
+    if(pthread_mutex_init(&lock, NULL) != 0) {
+        printf("Mutex init err!\n");
     }
 
-    if (pthread_mutex_init(&lock, NULL) != 0) {
-        printf("Mutex nie zostal utworzony\n");
+    for(i = 0; i < pub.num_mug; i++) {
+        pub.mugs[i] = false;
     }
 
-    printf("\nOtwieramy pub!\n");
-    printf("\nLiczba wolnych kufli %d\n", l_kufel);
+    printf("Otwieramy pub. Wpuszczamy gosci!\n\n");
 
-    for(i = 0; i < l_klient; i++) {
-        pthread_create(&tid, NULL, watek_klient, (void*)&kufle);
-        wait(1);
+    for(i = 0; i < pub.num_client; i++) {
+        pthread_create(&pub.clients[i], NULL, client_thread, (void *)&pub.client_ids[i]);
+        sleep(1);
     }
 
 
-    for (i = 0; i < l_klient; i++) {
-        pthread_join(tid[i], NULL);
+    for(i = 0; i < pub.num_client; i++) {
+        pthread_join(pub.clients[i], NULL);
+        printf("\tThread %lu joined\n", (unsigned long) pub.clients[i]);
     }
 
-    printf("\nStan kufli:\n");
-    for (int i = 0; i < l_kufel; i++) {
-        printf("%d ", kufle[i]);
+    printf("\nMugs state:\n[");
+    for(int i = 0; i < pub.num_mug; i++) {
+        printf("%d, ", pub.mugs[i]);
     }
-    printf("\n");
+    printf("]\n");
+
+
+    exit(0);
 }
 
-void * watek_klient (void * arg) {
-    int chce_wypic = 2;
-    int i;
-    int j;
-    bool *array = arg;
-    unsigned long int id = pthread_self();
+void * client_thread(void * arg_ptr) {
+    int wants_to_drink = 2;
+    int i = 0;
+    int j = 0;
+    int id = *(int*)arg_ptr;
+    bool got_mug = false;
+    bool *my_mug = NULL;
 
-    for (i = 0; i < chce_wypic; i++) {
-        int id_kufla;
-        bool sukces = false;
-
-
-        while(sukces == false) {
+    for(j = 0; j < wants_to_drink; j++) {
+        while(!got_mug) {
             pthread_mutex_lock(&lock);
-            for(j = 0; j < 3; j++) {
-                printf("%d, %d", array[i], i);
-                if (array[j] == true) { // Jeśli kufel jest wolny
-                    printf("\nKlient %lu, wybieram kufel nr.%d\n", id, j);
-                    array[j] = false; // Pobranie kufla
-
-                    id_kufla = j;
-                    sukces = true;
+            for(i = 0; i < pub.num_mug; i++) {
+                if(pub.mugs[i] == false) {
+                    printf("[Klient o id %d]\t bierze kufel nr. %d\n", id, i);
+                    pub.mugs[i] = true;
+                    my_mug = &pub.mugs[i];
+                    got_mug = true;
                     break;
                 }
             }
             pthread_mutex_unlock(&lock);
-            if(sukces == false) {
-                printf("\nKlient %lu, czeka\n", id);
-                usleep(300);
-            }
-
+            if(!got_mug) printf("[Klient o id %d]\t czeka na kufel\n", id);
+            usleep(400000);
         }
 
+        printf("[Klient o id %d]\t nalewa piwo z kranu\n", id);
+        usleep(200000);
+        printf("[Klient o id %d]\t pije piwo\n", id);
+        sleep(2);
 
-        printf("\nKlient %lu, nalewam z kranu\n", id);
-        usleep(300);
-        printf("\nKlient %lu, pije\n", id);
-        usleep(3000);
+        printf("[Klient o id %d]\t odnosi pusty kufel\n", id);
         pthread_mutex_lock(&lock);
-        printf("\nKlient %lu, odkladam kufel nr. %d\n", id, id_kufla);
-        array[id_kufla] = true;
+        *my_mug = false;
+        got_mug = false;
         pthread_mutex_unlock(&lock);
+        sleep(1);
     }
 
-    printf("\nKlient %lu, wychodzi z pubu\n", id);
+    printf("[Klient o id %d]\t wychodzi z baru\n", id);
 
-    return NULL;
+    return(NULL);
 }
