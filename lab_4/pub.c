@@ -9,7 +9,7 @@ struct Pub {
     int num_client;
     int num_tap;
     bool *mugs;
-    bool *taps;
+    pthread_mutex_t *taps;
     pthread_t *clients;
     int *client_ids;
 } pub;
@@ -35,8 +35,9 @@ main() {
     pub.clients = (pthread_t *) malloc(n_c * sizeof(pthread_t));
     pub.client_ids = (int *) malloc(n_c * sizeof(int));
     for(i = 0; i < n_c; i++) pub.client_ids[i] = i;
-    pub.mugs = (bool *) malloc(n_c * sizeof(bool));
-    pub.taps = (bool *) malloc(n_c * sizeof(bool));
+    pub.mugs = (bool *) malloc(n_m * sizeof(bool));
+    pub.taps = (pthread_mutex_t *) malloc(n_t * sizeof(pthread_mutex_t));
+    for(i = 0; i < n_t; i++) pthread_mutex_init(&pub.taps[i], NULL);
 
     if(pthread_mutex_init(&lock, NULL) != 0) {
         printf("Mutex init err!\n");
@@ -76,13 +77,17 @@ void * client_thread(void * arg_ptr) {
     int id = *(int*)arg_ptr;
     bool got_mug = false;
     bool *my_mug = NULL;
+    bool got_tap = false;
+    int status;
 
     for(j = 0; j < wants_to_drink; j++) {
         while(!got_mug) {
+
             pthread_mutex_lock(&lock);
             for(i = 0; i < pub.num_mug; i++) {
+
                 if(pub.mugs[i] == false) {
-                    printf("[Klient o id %d]\t bierze kufel nr. %d\n", id, i);
+                    printf("[Klient o id %d]\t ✅ bierze kufel nr. %d\n", id, i);
                     pub.mugs[i] = true;
                     my_mug = &pub.mugs[i];
                     got_mug = true;
@@ -90,16 +95,36 @@ void * client_thread(void * arg_ptr) {
                 }
             }
             pthread_mutex_unlock(&lock);
-            if(!got_mug) printf("[Klient o id %d]\t czeka na kufel\n", id);
+
+            if(!got_mug) printf("[Klient o id %d]\t ⏱  czeka na kufel\n", id);
             usleep(400000);
         }
 
-        printf("[Klient o id %d]\t nalewa piwo z kranu\n", id);
-        usleep(200000);
-        printf("[Klient o id %d]\t pije piwo\n", id);
+        while(!got_tap) {
+            for(i = 0; i < pub.num_tap; i++) {
+                status = pthread_mutex_trylock(&pub.taps[i]);
+                if (status == 0) {
+                    got_tap = true;
+                    printf("[Klient o id %d]\t 🚰 nalewa piwo z kranu nr. %d\n", id, i);
+                    sleep(4);
+                    pthread_mutex_unlock(&pub.taps[i]);
+                    if(got_tap) break;
+                }
+            }
+            if(!got_tap) {
+                printf("[Klient o id %d]\t ⏱  czeka na kran\n", id);
+                usleep(500000);
+            }
+        }
+        got_tap = false;
+
+
+
+
+        printf("[Klient o id %d]\t 🍺 pije piwo\n", id);
         sleep(2);
 
-        printf("[Klient o id %d]\t odnosi pusty kufel\n", id);
+        printf("[Klient o id %d]\t ↩️  odnosi pusty kufel\n", id);
         pthread_mutex_lock(&lock);
         *my_mug = false;
         got_mug = false;
@@ -107,7 +132,7 @@ void * client_thread(void * arg_ptr) {
         sleep(1);
     }
 
-    printf("[Klient o id %d]\t wychodzi z baru\n", id);
+    printf("[Klient o id %d]\t 🚶 wychodzi z baru\n", id);
 
     return(NULL);
 }
