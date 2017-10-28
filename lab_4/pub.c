@@ -12,6 +12,7 @@ struct Pub {
     pthread_mutex_t *taps;
     pthread_t *clients;
     int *client_ids;
+    int ctr_beers_drinked;
 } pub;
 
 pthread_mutex_t lock;
@@ -22,7 +23,7 @@ main() {
     int *client_iid;
     int i;
     int n_c, n_m, n_t;
-    char *s;
+    int ctr_return_mugs;
 
     printf("Podaj liczbe klientow: "); scanf("%d", &n_c);
     printf("Podaj liczbe kufli: "); scanf("%d", &n_m);
@@ -31,6 +32,7 @@ main() {
     pub.num_client = n_c;
     pub.num_mug = n_m;
     pub.num_tap = n_t;
+    pub.ctr_beers_drinked = 0;
 
     pub.clients = (pthread_t *) malloc(n_c * sizeof(pthread_t));
     pub.client_ids = (int *) malloc(n_c * sizeof(int));
@@ -47,7 +49,7 @@ main() {
         pub.mugs[i] = false;
     }
 
-    printf("Otwieramy pub. Wpuszczamy gosci!\n\n");
+    printf("\n🍻 Otwieramy pub. Wpuszczamy gosci!\n\n");
 
     for(i = 0; i < pub.num_client; i++) {
         pthread_create(&pub.clients[i], NULL, client_thread, (void *)&pub.client_ids[i]);
@@ -60,12 +62,12 @@ main() {
         printf("\tThread %lu joined\n", (unsigned long) pub.clients[i]);
     }
 
-    printf("\nMugs state:\n[");
-    for(int i = 0; i < pub.num_mug; i++) {
-        printf("%d, ", pub.mugs[i]);
-    }
-    printf("]\n");
 
+    for(int i = 0; i < pub.num_mug; i++) {
+        if(pub.mugs[i] == false) ctr_return_mugs++;
+    }
+    printf("\nMugs state:\t %d/%d returned\n", ctr_return_mugs, pub.num_mug);
+    printf("Beers drinked: %d\n", pub.ctr_beers_drinked);
 
     exit(0);
 }
@@ -118,11 +120,9 @@ void * client_thread(void * arg_ptr) {
         }
         got_tap = false;
 
-
-
-
         printf("[Klient o id %d]\t 🍺 pije piwo\n", id);
         sleep(2);
+        pub.ctr_beers_drinked++;
 
         printf("[Klient o id %d]\t ↩️  odnosi pusty kufel\n", id);
         pthread_mutex_lock(&lock);
