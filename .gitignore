@@ -1,0 +1,7 @@
+#OS junk files:
+*.DS_Store
+
+#Indirect files:
+*.o
+pub
+
