@@ -1,0 +1,77 @@
+Podaj liczbe klientow: 4
+Podaj liczbe kufli: 3
+Podaj liczbe kranow: 2
+
+🍻 Otwieramy pub. Wpuszczamy gosci!
+
+[ Klient o id 0 ]	 ✅ bierze kufel nr. 0
+[ Klient o id 0 ]	 🚰 nalewa piwo z kranu nr. 0
+[ Klient o id 1 ]	 ✅ bierze kufel nr. 1
+[ Klient o id 1 ]	 🚰 nalewa piwo z kranu nr. 1
+[ Klient o id 2 ]	 ✅ bierze kufel nr. 2
+[ Klient o id 2 ]	 💤 czeka na kran
+[ Klient o id 2 ]	 💤 czeka na kran
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 💤 czeka na kran
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 💤 czeka na kran
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 0 ]	 🍺 pije piwo
+[ Klient o id 2 ]	 🚰 nalewa piwo z kranu nr. 0
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 1 ]	 🍺 pije piwo
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 0 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 3 ]	 ✅ bierze kufel nr. 0
+[ Klient o id 3 ]	 🚰 nalewa piwo z kranu nr. 1
+[ Klient o id 1 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 0 ]	 ✅ bierze kufel nr. 1
+[ Klient o id 0 ]	 💤 czeka na kran
+[ Klient o id 0 ]	 💤 czeka na kran
+[ Klient o id 1 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 🍺 pije piwo
+[ Klient o id 1 ]	 💤 czeka na kufel
+[ Klient o id 0 ]	 🚰 nalewa piwo z kranu nr. 0
+[ Klient o id 1 ]	 💤 czeka na kufel
+[ Klient o id 1 ]	 💤 czeka na kufel
+[ Klient o id 1 ]	 💤 czeka na kufel
+[ Klient o id 1 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 1 ]	 ✅ bierze kufel nr. 2
+[ Klient o id 3 ]	 🍺 pije piwo
+[ Klient o id 1 ]	 🚰 nalewa piwo z kranu nr. 1
+[ Klient o id 2 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 💤 czeka na kufel
+[ Klient o id 0 ]	 🍺 pije piwo
+[ Klient o id 3 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 2 ]	 💤 czeka na kufel
+[ Klient o id 2 ]	 ✅ bierze kufel nr. 0
+[ Klient o id 2 ]	 🚰 nalewa piwo z kranu nr. 0
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 3 ]	 💤 czeka na kufel
+[ Klient o id 0 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 3 ]	 ✅ bierze kufel nr. 1
+[ Klient o id 1 ]	 🍺 pije piwo
+[ Klient o id 3 ]	 🚰 nalewa piwo z kranu nr. 1
+[ Klient o id 0 ]	 🚶 wychodzi z baru
+[🔸MAIN THREAD🔸]	 🔗 thread 0 joined
+[ Klient o id 1 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 2 ]	 🍺 pije piwo
+[ Klient o id 1 ]	 🚶 wychodzi z baru
+[🔸MAIN THREAD🔸]	 🔗 thread 1 joined
+[ Klient o id 3 ]	 🍺 pije piwo
+[ Klient o id 2 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 2 ]	 🚶 wychodzi z baru
+[🔸MAIN THREAD🔸]	 🔗 thread 2 joined
+[ Klient o id 3 ]	 ↩️  odnosi pusty kufel
+[ Klient o id 3 ]	 🚶 wychodzi z baru
+[🔸MAIN THREAD🔸]	 🔗 thread 3 joined
+
+Stan kufli:	 3/3 zwroconych
+Wypite piwa:	 8
