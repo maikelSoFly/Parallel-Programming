@@ -24,6 +24,7 @@ main() {
     int i;
     int n_c, n_m, n_t;
     int ctr_return_mugs;
+    void *ret_val;
 
     printf("Podaj liczbe klientow: "); scanf("%d", &n_c);
     printf("Podaj liczbe kufli: "); scanf("%d", &n_m);
@@ -58,22 +59,22 @@ main() {
 
 
     for(i = 0; i < pub.num_client; i++) {
-        pthread_join(pub.clients[i], NULL);
-        printf("[🔸MAIN THREAD🔸]\t 🔗 thread %lu joined\n", (unsigned long) pub.clients[i]);
+        pthread_join(pub.clients[i], &ret_val);
+        printf("[🔸MAIN THREAD🔸]\t 🔗 thread %d joined\n", (int) ret_val);
     }
 
 
     for(int i = 0; i < pub.num_mug; i++) {
         if(pub.mugs[i] == false) ctr_return_mugs++;
     }
-    printf("\nMugs state:\t %d/%d returned\n", ctr_return_mugs, pub.num_mug);
-    printf("Beers drinked:\t %d\n\n", pub.ctr_beers_drinked);
+    printf("\nStan kufli:\t %d/%d zwroconych\n", ctr_return_mugs, pub.num_mug);
+    printf("Wypite piwa:\t %d\n\n", pub.ctr_beers_drinked);
 
     exit(0);
 }
 
 void * client_thread(void * arg_ptr) {
-    int wants_to_drink = 2;
+    int num_wants_to_drink = 2;
     int i = 0;
     int j = 0;
     int id = *(int*)arg_ptr;
@@ -82,12 +83,10 @@ void * client_thread(void * arg_ptr) {
     bool got_tap = false;
     int status;
 
-    for(j = 0; j < wants_to_drink; j++) {
+    for(j = 0; j < num_wants_to_drink; j++) {
         while(!got_mug) {
-
             pthread_mutex_lock(&lock);
             for(i = 0; i < pub.num_mug; i++) {
-
                 if(pub.mugs[i] == false) {
                     printf("[ Klient o id %d ]\t ✅ bierze kufel nr. %d\n", id, i);
                     pub.mugs[i] = true;
@@ -97,7 +96,6 @@ void * client_thread(void * arg_ptr) {
                 }
             }
             pthread_mutex_unlock(&lock);
-
             if(!got_mug) printf("[ Klient o id %d ]\t 💤 czeka na kufel\n", id);
             usleep(400000);
         }
@@ -123,17 +121,16 @@ void * client_thread(void * arg_ptr) {
         printf("[ Klient o id %d ]\t 🍺 pije piwo\n", id);
         sleep(2);
 
-
         printf("[ Klient o id %d ]\t ↩️  odnosi pusty kufel\n", id);
         pthread_mutex_lock(&lock);
         pub.ctr_beers_drinked++;
         *my_mug = false;
-        got_mug = false;
         pthread_mutex_unlock(&lock);
+        got_mug = false;
         sleep(1);
     }
 
     printf("[ Klient o id %d ]\t 🚶 wychodzi z baru\n", id);
 
-    return(NULL);
+    return (void*) id;
 }
