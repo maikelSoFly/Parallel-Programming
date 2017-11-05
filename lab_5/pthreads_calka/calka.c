@@ -8,99 +8,27 @@
 int num_threads = 10;
 int N = 1000;
 float result;
-
 pthread_mutex_t mutex;
 
 struct ThreadInput {
     float dx;
-    float *ids;
-    float *results;
-    int iter;
-}input;
+    int id;
+    float result;
+};
 
 float f(float x) {
     return sin(x);
 }
 
-void * thread_func1(void * arg_ptr) {
-    float a, b, x1, x2, dx;
-    float loc_result = 0;
-    float f_val[2];
-    int myN, i;
-    int id = *(int*)arg_ptr;
-
-    a = 0;
-    b = PI;
-    dx = (b-a)/N;
-
-    myN = N/num_threads;
-
-    x1 = id * dx * myN;
-    f_val[0] = f(x1);
-    for(i = 0; i < myN; i++) {
-        x2 = x1 + dx;
-        f_val[1] = f(x2);
-        loc_result += f_val[0] + f_val[1];
-        f_val[0] = f_val[1];
-        x1 = x2;
-    }
-
-    pthread_mutex_lock(&mutex);
-    result += loc_result;
-    pthread_mutex_unlock(&mutex);
-
-    return(NULL);
-}
-
-void * thread_func2(void * arg_ptr) {
-    int id = *(int*)arg_ptr;
-    float a, b, a_loc, b_loc, dx_loc, x1, x2;
-    int N, i;
-    float loc_result = 0.0;
-    float f_val[2];
-    
-
-    a = 0;
-    b = PI;
-    N = (b-a)/input.dx;
-
-    a_loc = id * (b/num_threads);
-    b_loc = (id+1) * (b/num_threads);
-
-    // dx = (b-a)/N
-    // N = (b-a)/dx
-
-    int N_loc = (b_loc-a_loc)/input.dx;
-
-    float loc_dx = (b_loc-a_loc)/N_loc;
-
-    x1 = a_loc;
-    f_val[0] = f(x1);
-    for(i = 0; i < N_loc; i++) {
-        x2 = x1 + loc_dx;
-        f_val[1] = f(x2);
-        loc_result += f_val[0] + f_val[1];
-        f_val[0] = f_val[1];
-        x1 = x2;
-    }
-
-
-    pthread_mutex_lock(&mutex);
-    input.results[id] = loc_result;
-    pthread_mutex_unlock(&mutex);
-
-    //printf("N_loc: %d, a_loc: %.6f, b_loc: %.6f\n", N_loc, a_loc, b_loc);
-
-    return(NULL);
-}
-
-
+void * thread_func1(void * arg_ptr);
+void * thread_func2(void * arg_ptr);
 
 
 main() {
     int i;
     pthread_t tids[num_threads];
     int ids[num_threads];
+    struct ThreadInput thread_inputs[num_threads];
     float f_val[2];
     double t;
     float loc_vals[num_threads];
@@ -135,7 +63,6 @@ main() {
 
     // 4.
 
-
     if(pthread_mutex_init(&mutex, NULL) != 0) {
         printf("Mutex init error\n");
     }
@@ -158,23 +85,24 @@ main() {
 
 
     // 5.
-    input.dx = dx;
-    input.results = &loc_vals;
+
+    for(i = 0; i < num_threads; i++) {
+        thread_inputs[i].dx = dx;
+        thread_inputs[i].id = i;
+    }
 
     t = czas_zegara();
 
     for(i = 0; i < num_threads; i++) {
-
-        pthread_create(&tids[i], NULL, thread_func2, (void*)&ids[i]);
+        pthread_create(&tids[i], NULL, thread_func2, (void*)&thread_inputs[i]);
     }
 
     for(i = 0; i < num_threads; i++) {
         pthread_join(tids[i], NULL);
     }
 
-
     for(i = 0; i< num_threads; i++) {
-        result += input.results[i];
+        result += thread_inputs[i].result;
     }
     result *= 0.5 * dx;
     t = czas_zegara() - t;
@@ -183,6 +111,75 @@ main() {
     result = 0.0;
 
 
-
     exit(0);
+}
+
+void * thread_func1(void * arg_ptr) {
+    float a, b, x1, x2, dx;
+    float loc_result = 0;
+    float f_val[2];
+    int myN, i;
+    int id = *(int*)arg_ptr;
+
+    a = 0;
+    b = PI;
+    dx = (b-a)/N;
+
+    myN = N/num_threads;
+
+    x1 = id * dx * myN;
+    f_val[0] = f(x1);
+    for(i = 0; i < myN; i++) {
+        x2 = x1 + dx;
+        f_val[1] = f(x2);
+        loc_result += f_val[0] + f_val[1];
+        f_val[0] = f_val[1];
+        x1 = x2;
+    }
+
+    pthread_mutex_lock(&mutex);
+    result += loc_result;
+    pthread_mutex_unlock(&mutex);
+
+    return(NULL);
+}
+
+void * thread_func2(void * arg_ptr) {
+    struct ThreadInput *t_in = (struct ThreadInput*)arg_ptr;
+    float a, b, a_loc, b_loc, dx_loc, x1, x2;
+    int N, i;
+    float loc_result = 0.0;
+    float f_val[2];
+
+    int id = t_in->id;
+    float dx = t_in->dx;
+
+    a = 0;
+    b = PI;
+    N = (b-a)/dx;
+
+    a_loc = id * (b/num_threads);
+    b_loc = (id+1) * (b/num_threads);
+
+    // dx = (b-a)/N
+    // N = (b-a)/dx
+    int N_loc = (b_loc-a_loc)/dx;
+
+
+    x1 = a_loc;
+    f_val[0] = f(x1);
+    for(i = 0; i < N_loc; i++) {
+        x2 = x1 + dx;
+        f_val[1] = f(x2);
+        loc_result += f_val[0] + f_val[1];
+        f_val[0] = f_val[1];
+        x1 = x2;
+    }
+
+
+    pthread_mutex_lock(&mutex);
+    t_in->result = loc_result;
+    pthread_mutex_unlock(&mutex);
+
+    return(NULL);
 }
