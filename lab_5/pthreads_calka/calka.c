@@ -160,22 +160,18 @@ void * thread_func2(void * arg_ptr) {
 
     a_loc = id * (b/num_threads);
     b_loc = (id+1) * (b/num_threads);
-
-    // dx = (b-a)/N
-    // N = (b-a)/dx
-    int N_loc = (b_loc-a_loc)/dx;
-
+    dx_loc = dx - 0.000000005;
+    int N_loc = (b_loc-a_loc)/dx_loc;
 
     x1 = a_loc;
     f_val[0] = f(x1);
     for(i = 0; i < N_loc; i++) {
-        x2 = x1 + dx;
+        x2 = x1 + dx_loc;
         f_val[1] = f(x2);
         loc_result += f_val[0] + f_val[1];
         f_val[0] = f_val[1];
         x1 = x2;
     }
-
 
     pthread_mutex_lock(&mutex);
     t_in->result = loc_result;
