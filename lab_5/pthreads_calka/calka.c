@@ -34,7 +34,17 @@ main() {
     float loc_vals[num_threads];
     for(i = 0; i < num_threads; i++) ids[i] = i;
 
-    printf("N: %d, l_watkow: %d\n", N, num_threads);
+
+
+    // Opening txt file
+    FILE *file = fopen("results_logs.txt", "a");
+    if(file == NULL) {
+        printf("Error opening file!\n");
+    }
+
+    printf("N: %d, l_watkow: %d:\n", N, num_threads);
+    fprintf(file, "N: %d, l_watkow: %d:\n", N, num_threads);
+
     t = czas_zegara();
 
     float a, b, x1, x2, dx;
@@ -58,6 +68,8 @@ main() {
 
     printf("\tCzas zegara: %f\n", t);
     printf("Wynik: %.6f\t[Single-thread]\n", result);
+    fprintf(file, "\tCzas zegara: %f\n", t);
+    fprintf(file, "Wynik: %.6f\t[Single-thread]\n", result);
     result = 0.0;
 
 
@@ -81,6 +93,8 @@ main() {
     t = czas_zegara() - t;
     printf("\tCzas zegara: %f\n", t);
     printf("Wynik: %.6f\t[Multi-thread (4.)] \n", result);
+    fprintf(file, "\tCzas zegara: %f\n", t);
+    fprintf(file, "Wynik: %.6f\t[Multi-thread (4.)] \n", result);
     result = 0.0;
 
 
@@ -108,9 +122,11 @@ main() {
     t = czas_zegara() - t;
     printf("\tCzas zegara: %f\n", t);
     printf("Wynik: %.6f\t[Multi-thread (5.)] \n", result);
-    result = 0.0;
+    fprintf(file, "\tCzas zegara: %f\n", t);
+    fprintf(file, "Wynik: %.6f\t[Multi-thread (5.)] \n", result);
 
-
+    fprintf(file, "\n-----------------\n\n");
+    fclose(file);
     exit(0);
 }
 

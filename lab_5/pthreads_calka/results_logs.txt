@@ -1,0 +1,29 @@
+N: 1000, l_watkow: 10:
+	Czas zegara: 0.000733
+Wynik: 1.999975	[Single-thread]
+	Czas zegara: 0.000388
+Wynik: 1.999996	[Multi-thread (4.)]
+	Czas zegara: 0.000351
+Wynik: 1.999996	[Multi-thread (5.)]
+
+-----------------
+
+N: 1000, l_watkow: 10:
+	Czas zegara: 0.001063
+Wynik: 1.999975	[Single-thread]
+	Czas zegara: 0.000385
+Wynik: 1.999996	[Multi-thread (4.)]
+	Czas zegara: 0.000302
+Wynik: 1.999996	[Multi-thread (5.)]
+
+-----------------
+N: 1000, l_watkow: 10:
+	Czas zegara: 0.000650
+Wynik: 1.999975	[Single-thread]
+	Czas zegara: 0.000383
+Wynik: 1.999996	[Multi-thread (4.)] 
+	Czas zegara: 0.000277
+Wynik: 1.999996	[Multi-thread (5.)] 
+
+-----------------
+
