@@ -4,9 +4,10 @@
 #include <math.h>
 #include"pomiar_czasu.h"
 
-#define PI 3.14159265358979323846
-int num_threads = 10;
-int N = 1000;
+#define PI 3.1415
+
+int num_threads = 30;
+int N = 100000;
 float result;
 pthread_mutex_t mutex;
 
@@ -34,9 +35,10 @@ main() {
     float loc_vals[num_threads];
     for(i = 0; i < num_threads; i++) ids[i] = i;
 
+    printf("N: "); scanf("%d", &N);
+    printf("Number of threads: "); scanf("%d", &num_threads);
 
-
-    // Opening txt file
+    // Opening .txt file
     FILE *file = fopen("results_logs.txt", "a");
     if(file == NULL) {
         printf("Error opening file!\n");
@@ -124,8 +126,9 @@ main() {
     printf("Wynik: %.6f\t[Multi-thread (5.)] \n", result);
     fprintf(file, "\tCzas zegara: %f\n", t);
     fprintf(file, "Wynik: %.6f\t[Multi-thread (5.)] \n", result);
-
     fprintf(file, "\n-----------------\n\n");
+
+
     fclose(file);
     exit(0);
 }
@@ -172,11 +175,13 @@ void * thread_func2(void * arg_ptr) {
 
     a = 0;
     b = PI;
-    N = (b-a)/dx;
 
-    a_loc = id * (b/num_threads);
-    b_loc = (id+1) * (b/num_threads);
-    dx_loc = dx - 0.000000005;
+    float thread_interval = (b-a) / num_threads;
+
+    a_loc = a + id * thread_interval;
+    b_loc = a + (id+1) * thread_interval;
+
+    dx_loc = dx;
     int N_loc = (b_loc-a_loc)/dx_loc;
 
     x1 = a_loc;

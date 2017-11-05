@@ -27,3 +27,263 @@ Wynik: 1.999996	[Multi-thread (5.)]
 
 -----------------
 
+N: 100000, l_watkow: 10:
+	Czas zegara: 0.003088
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001388
+Wynik: 1.999731	[Multi-thread (4.)] 
+	Czas zegara: 0.001342
+Wynik: 1.999948	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 10:
+	Czas zegara: 0.002665
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001299
+Wynik: 1.999731	[Multi-thread (4.)] 
+	Czas zegara: 0.001228
+Wynik: 1.999948	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 15:
+	Czas zegara: 0.002117
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001000
+Wynik: 1.999823	[Multi-thread (4.)] 
+	Czas zegara: 0.000904
+Wynik: 1.999922	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.002663
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001208
+Wynik: 1.999869	[Multi-thread (4.)] 
+	Czas zegara: 0.000926
+Wynik: 1.999864	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 25:
+	Czas zegara: 0.002216
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001336
+Wynik: 1.999898	[Multi-thread (4.)] 
+	Czas zegara: 0.001072
+Wynik: 1.999887	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 25:
+	Czas zegara: 0.002132
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001141
+Wynik: 1.999898	[Multi-thread (4.)] 
+	Czas zegara: 0.001017
+Wynik: 1.999887	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.002011
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001383
+Wynik: 1.999869	[Multi-thread (4.)] 
+	Czas zegara: 0.001706
+Wynik: 1.999864	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.002013
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001680
+Wynik: 1.999869	[Multi-thread (4.)] 
+	Czas zegara: 0.001200
+Wynik: 1.999864	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.002014
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001798
+Wynik: 1.999869	[Multi-thread (4.)] 
+	Czas zegara: 0.001147
+Wynik: 1.999864	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.002082
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001670
+Wynik: 1.999869	[Multi-thread (4.)] 
+	Czas zegara: 0.001562
+Wynik: 1.999864	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 30:
+	Czas zegara: 0.002599
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001551
+Wynik: 1.999915	[Multi-thread (4.)] 
+	Czas zegara: 0.001073
+Wynik: 1.999706	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 30:
+	Czas zegara: 0.002282
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001209
+Wynik: 1.999914	[Multi-thread (4.)] 
+	Czas zegara: 0.001091
+Wynik: 1.999706	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 2:
+	Czas zegara: 0.001184
+Wynik: 1.999975	[Single-thread]
+	Czas zegara: 0.000140
+Wynik: 1.999982	[Multi-thread (4.)] 
+	Czas zegara: 0.000099
+Wynik: 1.999982	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 30:
+	Czas zegara: 0.003212
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001220
+Wynik: 1.999914	[Multi-thread (4.)] 
+	Czas zegara: 0.001108
+Wynik: 1.999706	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 30:
+	Czas zegara: 0.003515
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001158
+Wynik: 1.999915	[Multi-thread (4.)] 
+	Czas zegara: 0.001092
+Wynik: 2.002625	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000000, l_watkow: 30:
+	Czas zegara: 0.017028
+Wynik: 2.020350	[Single-thread]
+	Czas zegara: 0.006421
+Wynik: 2.000691	[Multi-thread (4.)] 
+	Czas zegara: 0.005650
+Wynik: 2.000971	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000000, l_watkow: 30:
+	Czas zegara: 0.017050
+Wynik: 2.020350	[Single-thread]
+	Czas zegara: 0.005871
+Wynik: 2.000691	[Multi-thread (4.)] 
+	Czas zegara: 0.000621
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10000, l_watkow: 30:
+	Czas zegara: 0.001245
+Wynik: 1.999974	[Single-thread]
+	Czas zegara: 0.000985
+Wynik: 1.999984	[Multi-thread (4.)] 
+	Czas zegara: 0.001477
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 30:
+	Czas zegara: 0.003903
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001203
+Wynik: 1.999914	[Multi-thread (4.)] 
+	Czas zegara: 0.001363
+Wynik: 2.032083	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 30:
+	Czas zegara: 0.003509
+Wynik: 1.997375	[Single-thread]
+	Czas zegara: 0.001675
+Wynik: 1.999914	[Multi-thread (4.)] 
+	Czas zegara: 0.001586
+Wynik: 2.002625	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10000000, l_watkow: 30:
+	Czas zegara: 0.141129
+Wynik: 2.107405	[Single-thread]
+	Czas zegara: 0.057810
+Wynik: 2.010509	[Multi-thread (4.)] 
+	Czas zegara: 0.057731
+Wynik: 2.013716	[Multi-thread (5.)] 
+
+-----------------
+
+N: 9000000, l_watkow: 30:
+	Czas zegara: 0.125162
+Wynik: 2.204785	[Single-thread]
+	Czas zegara: 0.051135
+Wynik: 2.015266	[Multi-thread (4.)] 
+	Czas zegara: 0.052418
+Wynik: 2.018167	[Multi-thread (5.)] 
+
+-----------------
+
+N: 900000, l_watkow: 20:
+	Czas zegara: 0.015438
+Wynik: 1.993560	[Single-thread]
+	Czas zegara: 0.005204
+Wynik: 1.998421	[Multi-thread (4.)] 
+	Czas zegara: 0.005715
+Wynik: 1.998678	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.003055
+Wynik: 1.997315	[Single-thread]
+	Czas zegara: 0.001314
+Wynik: 1.999868	[Multi-thread (4.)] 
+	Czas zegara: 0.001466
+Wynik: 1.999868	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000000, l_watkow: 30:
+	Czas zegara: 0.016885
+Wynik: 2.020290	[Single-thread]
+	Czas zegara: 0.005616
+Wynik: 2.000691	[Multi-thread (4.)] 
+	Czas zegara: 0.006650
+Wynik: 2.000971	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000000, l_watkow: 30:
+	Czas zegara: 0.017540
+Wynik: 2.020290	[Single-thread]
+	Czas zegara: 0.005691
+Wynik: 2.000692	[Multi-thread (4.)] 
+	Czas zegara: 0.006935
+Wynik: 2.000671	[Multi-thread (5.)] 
+
+-----------------
+
