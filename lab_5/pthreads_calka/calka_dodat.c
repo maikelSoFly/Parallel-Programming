@@ -113,13 +113,11 @@ main() {
         pthread_create(&tids[i], NULL, thread_func2, (void*)&thread_inputs[i]);
     }
 
-
     for(i = 0; i < num_threads; i++) {
-        pthread_join(tids[i], NULL);
-    }
-
-    for(i = 0; i< num_threads; i++) {
-        result += thread_inputs[i].result;
+        float *ret;
+        pthread_join(tids[i], (void**)&ret);
+        result += *ret;
+        free(ret);
     }
 
     result *= 0.5 * dx;
@@ -169,7 +167,8 @@ void * thread_func2(void * arg_ptr) {
     struct ThreadInput *t_in = (struct ThreadInput*)arg_ptr;
     float a, b, a_loc, b_loc, dx_loc, x1, x2;
     int N, i;
-    float loc_result = 0.0;
+    float *loc_result = (float*)malloc(sizeof(float));
+    *loc_result = 0.0;
     float f_val[2];
 
     int id = t_in->id;
@@ -191,14 +190,10 @@ void * thread_func2(void * arg_ptr) {
     for(i = 0; i < N_loc; i++) {
         x2 = x1 + dx_loc;
         f_val[1] = f(x2);
-        loc_result += f_val[0] + f_val[1];
+        *loc_result += f_val[0] + f_val[1];
         f_val[0] = f_val[1];
         x1 = x2;
     }
 
-    pthread_mutex_lock(&mutex);
-    t_in->result = loc_result;
-    pthread_mutex_unlock(&mutex);
-
-    pthread_exit(NULL);
+    pthread_exit((void*)loc_result);
 }

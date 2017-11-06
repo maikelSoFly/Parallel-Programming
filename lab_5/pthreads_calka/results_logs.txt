@@ -287,3 +287,263 @@ Wynik: 2.000671	[Multi-thread (5.)]
 
 -----------------
 
+N: 100000, l_watkow: 20:
+	Czas zegara: 0.003873
+Wynik: 1.997315	[Single-thread]
+	Czas zegara: 0.001321
+Wynik: 1.999868	[Multi-thread (4.)] 
+	Czas zegara: 0.001587
+Wynik: 1.999718	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10000, l_watkow: 1:
+	Czas zegara: 0.001333
+Wynik: 1.999918	[Single-thread]
+	Czas zegara: 0.000270
+Wynik: 1.999918	[Multi-thread (4.)] 
+	Czas zegara: 0.000309
+Wynik: 1.999918	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10000, l_watkow: 5:
+	Czas zegara: 0.001442
+Wynik: 1.999918	[Single-thread]
+	Czas zegara: 0.000495
+Wynik: 1.999935	[Multi-thread (4.)] 
+	Czas zegara: 0.000469
+Wynik: 1.999750	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10000, l_watkow: 1:
+	Czas zegara: 0.001563
+Wynik: 1.999918	[Single-thread]
+	Czas zegara: 0.000531
+Wynik: 1.999918	[Multi-thread (4.)] 
+	Czas zegara: 0.000476
+Wynik: 1.999918	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 3:
+	Czas zegara: 0.000816
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000141
+Wynik: 2.000009	[Multi-thread (4.)] 
+	Czas zegara: 0.000119
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 110, l_watkow: 2:
+	Czas zegara: 0.001127
+Wynik: 1.999861	[Single-thread]
+	Czas zegara: 0.000226
+Wynik: 1.999862	[Multi-thread (4.)] 
+	Czas zegara: 0.000203
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10, l_watkow: 5:
+	Czas zegara: 0.001315
+Wynik: 1.983524	[Single-thread]
+	Czas zegara: 0.000387
+Wynik: 1.983524	[Multi-thread (4.)] 
+	Czas zegara: 0.000393
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 2:
+	Czas zegara: 0.001291
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000238
+Wynik: 2.000015	[Multi-thread (4.)] 
+	Czas zegara: 0.000298
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 100, l_watkow: 5:
+	Czas zegara: 0.001196
+Wynik: 1.999836	[Single-thread]
+	Czas zegara: 0.000292
+Wynik: 1.999835	[Multi-thread (4.)] 
+	Czas zegara: 0.000328
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10, l_watkow: 6:
+	Czas zegara: 0.001285
+Wynik: 1.983524	[Single-thread]
+	Czas zegara: 0.000411
+Wynik: 1.298181	[Multi-thread (4.)] 
+	Czas zegara: 0.000352
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10, l_watkow: 4:
+	Czas zegara: 0.001151
+Wynik: 1.983524	[Single-thread]
+	Czas zegara: 0.000289
+Wynik: 1.794072	[Multi-thread (4.)] 
+	Czas zegara: 0.000293
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 3:
+	Czas zegara: 0.000805
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000184
+Wynik: 2.000009	[Multi-thread (4.)] 
+	Czas zegara: 0.000153
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.000741
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000269
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000205
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 3:
+	Czas zegara: 0.000973
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000186
+Wynik: 2.000009	[Multi-thread (4.)] 
+	Czas zegara: 0.000142
+Wynik: 2.000924	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.001254
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000374
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000389
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 10:
+	Czas zegara: 0.001205
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000622
+Wynik: 2.000003	[Multi-thread (4.)] 
+	Czas zegara: 0.000694
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 10000, l_watkow: 3:
+	Czas zegara: 0.001417
+Wynik: 1.999918	[Single-thread]
+	Czas zegara: 0.000417
+Wynik: 1.999878	[Multi-thread (4.)] 
+	Czas zegara: 0.000495
+Wynik: 1.999969	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.000992
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000248
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000250
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.001160
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000353
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000573
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.001529
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000257
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000348
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.001110
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000366
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000365
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.000941
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000304
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000261
+Wynik: 0.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.000825
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000204
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000214
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.000796
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000199
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000201
+Wynik: 467988029609656358963741982720.000000	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.001140
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000375
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000472
+Wynik: 1.998151	[Multi-thread (5.)] 
+
+-----------------
+
+N: 1000, l_watkow: 5:
+	Czas zegara: 0.001189
+Wynik: 2.000010	[Single-thread]
+	Czas zegara: 0.000347
+Wynik: 2.000007	[Multi-thread (4.)] 
+	Czas zegara: 0.000294
+Wynik: 1.998151	[Multi-thread (5.)] 
+
+-----------------
+
