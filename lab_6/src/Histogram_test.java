@@ -47,10 +47,10 @@ class Histogram_test {
         Thread[] NewThr2Thr = new Thread[num_threads];
 
         int ilosc_znakow = 94/num_threads;
-
+        Object lock = new Object();
 
         for (int i = 0; i < num_threads; i++) {
-            NewThr2[i] = new Watek2(obraz_1, i, ilosc_znakow);
+            NewThr2[i] = new Watek2(obraz_1, i, ilosc_znakow, lock);
             (NewThr2Thr[i] = new Thread(NewThr2[i])).start();
         }
 
@@ -62,14 +62,6 @@ class Histogram_test {
             }
         }
 
-        for(int i = 0; i < num_threads; i++) {
-            System.out.println("-- id: "+i+" --");
-            int[] hist = NewThr2[i].getHistogram();
-            char[] znaki = NewThr2[i].getZnaki();
-            for(int j = 0; j < ilosc_znakow; j++) {
-                System.out.println(znaki[j] + ": " +hist[j]);
-            }
-        }
 
         // Zadanie 3.
 

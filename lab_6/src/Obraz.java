@@ -61,11 +61,18 @@ class Obraz {
         return counter;
     }
 
-    public void seekForChars(char[] znaki, int[] histogram) {
+    public void seekForChars(char[] znaki, int[] histogram, Object lock, int id) {
         for(int i=0;i<size_n;i++) {
             for(int j=0;j<size_m;j++) {
                 for(int k=0;k<znaki.length;k++) {
-                    if(tab[i][j] == znaki[k]) histogram[k]++;
+
+                    if(tab[i][j] == znaki[k]) {
+                        synchronized (lock) {
+                            histogram[k]++;
+                            System.out.println("[Watek: "+id+"]  "+znaki[k] +" "+ histogram[k]);
+                        }
+
+                    }
                 }
             }
         }

@@ -9,13 +9,15 @@ public class Watek2 implements Runnable {
     private char[] znaki;
     private int iloscZnakow;
     private int[] histogram;
+    private Object lock;
 
 
-    public Watek2(Obraz obraz, int id, int iloscZnakow) {
+    public Watek2(Obraz obraz, int id, int iloscZnakow, Object lock) {
         this.obraz = obraz;
         this.id = id;
         this.iloscZnakow = iloscZnakow;
         this.znaki = new char[iloscZnakow];
+        this.lock = lock;
     }
 
 
@@ -26,7 +28,7 @@ public class Watek2 implements Runnable {
         histogram = new int[iloscZnakow];
         for(int i = 0; i < iloscZnakow; i++)
             histogram[i] = 0;
-        obraz.seekForChars(znaki, histogram);
+        obraz.seekForChars(znaki, histogram, lock, id);
     }
 
 
