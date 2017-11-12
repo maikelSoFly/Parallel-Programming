@@ -86,6 +86,21 @@ class Obraz {
         }
     }
 
+    public void calculateHistogramColumn(int column, int[] loc_hist, int id, Object lock) {
+        for(int i=0;i<size_m;i++) {
+            for(int k=0;k<94;k++) {
+
+                if (tab[i][column] == (char) (k + 33)) {
+                    synchronized (lock) {
+                        loc_hist[k]++;
+                        System.out.println("[Watek: "+id+"] " +" "+ tab[i][column] +": "+loc_hist[k]);
+                    }
+                }
+
+            }
+        }
+    }
+
     public void print_histogram(){
         for(int i=0;i<94;i++) {
             System.out.print((char)(i+33)+" "+histogram[i]+"\n");

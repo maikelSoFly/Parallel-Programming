@@ -98,6 +98,25 @@ class Histogram_test {
             System.out.println((char)(33+i) +" "+ histogram[i]);
         }
 
+
+        // Zadanie Dodatkowe
+        System.out.println("---Zadanie dodatkowe---");
+        Watek3Kolumnowy[] NewThr4 = new Watek3Kolumnowy[num_threads];
+
+        for(int i = 0; i < num_threads; i++) {
+            (NewThr4[i] = new Watek3Kolumnowy(obraz_1, i, num_threads, m, lock)).start();
+        }
+
+        for(int i = 0; i < num_threads; i++) {
+            try {
+                NewThr4[i].join();
+            } catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
 
 }
