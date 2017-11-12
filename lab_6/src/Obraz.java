@@ -35,23 +35,17 @@ class Obraz {
     }
 
     public void clear_histogram(){
-
         for(int i=0;i<94;i++) histogram[i]=0;
-
     }
 
     public void calculate_histogram(){
-
         for(int i=0;i<size_n;i++) {
             for(int j=0;j<size_m;j++) {
-
                 for(int k=0;k<94;k++) {
                     if(tab[i][j] == (char)(k+33)) histogram[k]++;
                 }
-
             }
         }
-
     }
 
     public Integer seekForChar(char znak) {
@@ -70,33 +64,25 @@ class Obraz {
     public void seekForChars(char[] znaki, int[] histogram) {
         for(int i=0;i<size_n;i++) {
             for(int j=0;j<size_m;j++) {
-
                 for(int k=0;k<znaki.length;k++) {
                     if(tab[i][j] == znaki[k]) histogram[k]++;
                 }
-
             }
         }
     }
 
     public void calculateHistogramRow(int row, int[] loc_hist) {
         for(int i=0;i<size_n;i++) {
-
-
             for(int k=0;k<94;k++) {
                 if(tab[row][i] == (char)(k+33)) loc_hist[k]++;
             }
-
-
         }
     }
 
     public void print_histogram(){
-
         for(int i=0;i<94;i++) {
             System.out.print((char)(i+33)+" "+histogram[i]+"\n");
         }
-
     }
 
     public char[][] getTab() {

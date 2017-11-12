@@ -9,7 +9,6 @@ public class Watek extends Thread {
     private char znak;
 
 
-
     public Watek(Obraz obraz, char znak, Integer id) {
         this.obraz = obraz;
         this.znak = znak;
@@ -21,6 +20,7 @@ public class Watek extends Thread {
         Integer counter = obraz.seekForChar(this.znak);
         System.out.println("[watek "+id+"]  "+znak +": "+ counter);
     }
+
 
     public static void main(String args[]) {
 

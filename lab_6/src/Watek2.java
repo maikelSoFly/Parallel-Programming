@@ -29,6 +29,7 @@ public class Watek2 implements Runnable {
         obraz.seekForChars(znaki, histogram);
     }
 
+
     public int[] getHistogram() {
         return this.histogram;
     }

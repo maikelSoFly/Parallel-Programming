@@ -19,7 +19,6 @@ public class Watek3Wierszowy extends Thread {
     }
 
 
-
     public void run() {
         loc_hist = new int[94];
         int start = id;
@@ -28,11 +27,6 @@ public class Watek3Wierszowy extends Thread {
         for(int i = start; i < koniec; i+=skok) {
             obraz.calculateHistogramRow(i, loc_hist);
         }
-
-//        for(int i = 0; i < 95; i++)
-//            System.out.println(loc_hist[i]);
-
-
     }
 
     public int[] getHist() {

@@ -105,7 +105,7 @@ class Histogram_test {
         for(int i = 0; i < 94; i++) {
             System.out.println((char)(33+i) +" "+ histogram[i]);
         }
-        
+
     }
 
 }
