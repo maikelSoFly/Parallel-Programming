@@ -43,13 +43,23 @@ void *funkcja_czytelnika( void * arg){
     for(;;) {
         usleep(rand()%10000000);
         printf("czytelnik %d - przed zamkiem\n", pthread_self());
+        pthread_mutex_lock(&czytelnia_p->mutex);
         my_read_lock_lock(czytelnia_p);
+
         // korzystanie z zasobow czytelni
         printf("czytelnik %d - wchodze\n", pthread_self());
+
         czytam(czytelnia_p);
+
         printf("czytelnik %d - wychodze\n", pthread_self());
+
         my_read_lock_unlock(czytelnia_p);
+
+
+
+        pthread_mutex_unlock(&czytelnia_p->mutex);
         printf("czytelnik %d - po zamku\n", pthread_self());
+
     }
 
 }
@@ -60,13 +70,21 @@ void *funkcja_pisarza( void * arg){
 
     for(;;) {
         usleep(rand()%11000000);
+
         printf("pisarz %d - przed zamkiem\n", pthread_self());
+        pthread_mutex_lock(&czytelnia_p->mutex);
         my_write_lock_lock(czytelnia_p);
         // korzystanie z zasobow czytelni
+
         printf("pisarz %d - wchodze\n", pthread_self());
         pisze(czytelnia_p);
+
         printf("pisarz %d - wychodze\n", pthread_self());
         my_write_lock_unlock(czytelnia_p);
+
+
+        pthread_mutex_unlock(&czytelnia_p->mutex);
+
         printf("pisarz %d - po zamku\n", pthread_self());
     }
 

@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+
 #include "czytelnia.h"
 
 
 /*** Implementacja procedur interfejsu ***/
 
 int my_read_lock_lock(czytelnia_t* czytelnia_p){
-    pthread_mutex_lock(&czytelnia_p->mutex);
     while(!czytelnia_p->jest_co_czytac) pthread_cond_wait(&czytelnia_p->czytac, &czytelnia_p->mutex);
 }
 
@@ -21,12 +21,11 @@ int my_read_lock_unlock(czytelnia_t* czytelnia_p){
         pthread_cond_signal(&czytelnia_p->pisac);
     }
     czytelnia_p->ilosc_czytelnikow--;
-    pthread_mutex_unlock(&czytelnia_p->mutex);
+
 }
 
 
 int my_write_lock_lock(czytelnia_t* czytelnia_p){
-    pthread_mutex_lock(&czytelnia_p->mutex);
     while(czytelnia_p->jest_co_czytac) pthread_cond_wait(&czytelnia_p->pisac, &czytelnia_p->mutex);
 }
 
@@ -34,7 +33,6 @@ int my_write_lock_lock(czytelnia_t* czytelnia_p){
 int my_write_lock_unlock(czytelnia_t* czytelnia_p){
     czytelnia_p->ilosc_pisarzy--;
     pthread_cond_signal(&czytelnia_p->czytac);
-    pthread_mutex_unlock(&czytelnia_p->mutex);
 }
 
 void inicjuj(czytelnia_t* czytelnia_p){
@@ -57,4 +55,5 @@ void pisze(czytelnia_t* czytelnia_p){
     czytelnia_p->ilosc_pisarzy++;
     usleep(rand()%1000000);
     czytelnia_p->jest_co_czytac = 1;
+
 }
