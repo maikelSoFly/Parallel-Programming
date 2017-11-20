@@ -11,7 +11,6 @@ int noPisarze = 5;
 int noCzytelnicy = 10;
 
 
-
 int main(){
     int i;
     pthread_t pisarze[noPisarze], czytelnicy[noCzytelnicy];

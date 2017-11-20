@@ -5,7 +5,7 @@
 typedef struct {
   int jest_pisarz;
   int jest_co_czytac;
-  pthread_mutex_t mutex;
+  pthread_rwlock_t mutex;
   pthread_cond_t czytac, pisac;
   int ilosc_pisarzy;
   int ilosc_czytelnikow;

@@ -12,7 +12,6 @@ int my_read_lock_lock(czytelnia_t* czytelnia_p){
     while(!czytelnia_p->jest_co_czytac) pthread_cond_wait(&czytelnia_p->czytac, &czytelnia_p->mutex);
 }
 
-
 int my_read_lock_unlock(czytelnia_t* czytelnia_p){
     czytelnia_p->ile_przeczytalo++;
     if(czytelnia_p->ile_przeczytalo == 10) {
@@ -24,12 +23,10 @@ int my_read_lock_unlock(czytelnia_t* czytelnia_p){
     pthread_mutex_unlock(&czytelnia_p->mutex);
 }
 
-
 int my_write_lock_lock(czytelnia_t* czytelnia_p){
     pthread_mutex_lock(&czytelnia_p->mutex);
     while(czytelnia_p->jest_co_czytac) pthread_cond_wait(&czytelnia_p->pisac, &czytelnia_p->mutex);
 }
-
 
 int my_write_lock_unlock(czytelnia_t* czytelnia_p){
     czytelnia_p->ilosc_pisarzy--;

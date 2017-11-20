@@ -11,7 +11,6 @@ int noPisarze = 5;
 int noCzytelnicy = 10;
 
 
-
 int main(){
     int i;
     pthread_t pisarze[noPisarze], czytelnicy[noCzytelnicy];
@@ -43,7 +42,7 @@ void *funkcja_czytelnika( void * arg){
     for(;;) {
         usleep(rand()%10000000);
         printf("czytelnik %d - przed zamkiem\n", pthread_self());
-        pthread_mutex_lock(&czytelnia_p->mutex);
+        pthread_rwlock_rdlock(&czytelnia_p->mutex);
         my_read_lock_lock(czytelnia_p);
 
         // korzystanie z zasobow czytelni
@@ -57,7 +56,7 @@ void *funkcja_czytelnika( void * arg){
 
 
 
-        pthread_mutex_unlock(&czytelnia_p->mutex);
+        pthread_rwlock_unlock(&czytelnia_p->mutex);
         printf("czytelnik %d - po zamku\n", pthread_self());
 
     }
@@ -72,7 +71,7 @@ void *funkcja_pisarza( void * arg){
         usleep(rand()%11000000);
 
         printf("pisarz %d - przed zamkiem\n", pthread_self());
-        pthread_mutex_lock(&czytelnia_p->mutex);
+        pthread_rwlock_wrlock(&czytelnia_p->mutex);
         my_write_lock_lock(czytelnia_p);
         // korzystanie z zasobow czytelni
 
@@ -83,7 +82,7 @@ void *funkcja_pisarza( void * arg){
         my_write_lock_unlock(czytelnia_p);
 
 
-        pthread_mutex_unlock(&czytelnia_p->mutex);
+        pthread_rwlock_unlock(&czytelnia_p->mutex);
 
         printf("pisarz %d - po zamku\n", pthread_self());
     }
