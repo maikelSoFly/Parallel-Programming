@@ -2,6 +2,8 @@
 #include<stdio.h>
 #include<omp.h>
 
+int f_threadprivate = 11;
+#pragma omp threadprivate(f_threadprivate)
 int main(){
 
 #ifdef   _OPENMP
@@ -16,11 +18,12 @@ int main(){
 
 
   printf("przed wejsciem do obszaru rownoleglego -  nr_threads %d, thread ID %d\n",
-	 omp_get_num_threads(), omp_get_thread_num());
-  printf("\ta_shared \t= %d\n", a_shared);
-  printf("\tb_private \t= %d\n", b_private);
-  printf("\tc_firstprivate \t= %d\n", c_firstprivate);
-  printf("\te_atomic \t= %d\n", e_atomic);
+		 omp_get_num_threads(), omp_get_thread_num());
+  printf("\ta_shared \t\t= %d\n", a_shared);
+  printf("\tb_private \t\t= %d\n", b_private);
+  printf("\tc_firstprivate \t\t= %d\n", c_firstprivate);
+  printf("\te_atomic \t\t= %d\n", e_atomic);
+  printf("\tf_threadprivate \t= %d\n", f_threadprivate);
 
 
 #pragma omp parallel default(none) shared(a_shared, e_atomic) private(b_private) firstprivate(c_firstprivate )
@@ -45,16 +48,20 @@ int main(){
         e_atomic+=tn;
     }
 
+    #pragma critical
+    f_threadprivate = omp_get_thread_num();
+
     #pragma omp critical
     {
 
       printf("\nw obszarze równoległym: aktualna liczba watkow %d, moj ID %d\n",
-	     omp_get_num_threads(), omp_get_thread_num());
-      printf("\ta_shared \t= %d\n", a_shared);
-      printf("\tb_private \t= %d\n", b_private);
-      printf("\tc_firstprivate \t= %d\n", c_firstprivate);
-      printf("\td_local_private = %d\n", d_local_private);
-      printf("\te_atomic \t= %d\n", e_atomic);
+		     omp_get_num_threads(), omp_get_thread_num());
+      printf("\ta_shared \t\t= %d\n", a_shared);
+      printf("\tb_private \t\t= %d\n", b_private);
+      printf("\tc_firstprivate \t\t= %d\n", c_firstprivate);
+      printf("\td_local_private \t= %d\n", d_local_private);
+      printf("\te_atomic \t\t= %d\n", e_atomic);
+      printf("\tf_threadprivate \t= %d\n", f_threadprivate);
 
     }
 
@@ -63,7 +70,7 @@ int main(){
 /*         { */
 
 /*           printf("\ninside single: nr_threads %d, thread ID %d\n", */
-/*     	     omp_get_num_threads(), omp_get_thread_num()); */
+/*     		     omp_get_num_threads(), omp_get_thread_num()); */
 /*           /\* Get environment information *\/ */
 /*           int procs = omp_get_num_procs(); */
 /*           int nthreads = omp_get_num_threads(); */
@@ -84,10 +91,27 @@ int main(){
 
   }
 
+  #pragma omp parallel default(none) shared(a_shared, e_atomic) private(b_private) firstprivate(c_firstprivate )
+  {
+      #pragma omp critical
+      {
+
+        printf("\nw DRUGIM obszarze równoległym: aktualna liczba watkow %d, moj ID %d\n",
+  		     omp_get_num_threads(), omp_get_thread_num());
+        printf("\ta_shared \t\t= %d\n", a_shared);
+        printf("\tb_private \t\t= %d\n", b_private);
+        printf("\tc_firstprivate \t\t= %d\n", c_firstprivate);
+        printf("\te_atomic \t\t= %d\n", e_atomic);
+        printf("\tf_threadprivate \t= %d\n", f_threadprivate);
+
+      }
+  }
+
   printf("po zakonczeniu obszaru rownoleglego:\n");
-  printf("\ta_shared \t= %d\n", a_shared);
-  printf("\tb_private \t= %d\n", b_private);
-  printf("\tc_firstprivate \t= %d\n", c_firstprivate);
-  printf("\te_atomic \t= %d\n", e_atomic);
+  printf("\ta_shared \t\t= %d\n", a_shared);
+  printf("\tb_private \t\t= %d\n", b_private);
+  printf("\tc_firstprivate \t\t= %d\n", c_firstprivate);
+  printf("\te_atomic \t\t= %d\n", e_atomic);
+  printf("\tf_threadprivate \t= %d\n", f_threadprivate);
 
 }
