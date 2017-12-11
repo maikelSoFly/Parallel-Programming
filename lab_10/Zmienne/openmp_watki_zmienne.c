@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<omp.h>
 
-int f_threadprivate = 11;
+int f_threadprivate = 7;
 #pragma omp threadprivate(f_threadprivate)
 int main(){
 
@@ -43,12 +43,12 @@ int main(){
 
     #pragma omp for
     for(i=0;i<10;i++){
-        int tn = omp_get_thread_num();
+        int temp = omp_get_thread_num();
         #pragma omp atomic
-        e_atomic+=tn;
+        e_atomic+=temp;
     }
 
-    #pragma critical
+    //#pragma critical
     f_threadprivate = omp_get_thread_num();
 
     #pragma omp critical
@@ -103,6 +103,7 @@ int main(){
         printf("\tc_firstprivate \t\t= %d\n", c_firstprivate);
         printf("\te_atomic \t\t= %d\n", e_atomic);
         printf("\tf_threadprivate \t= %d\n", f_threadprivate);
+
 
       }
   }
