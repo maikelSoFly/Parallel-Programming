@@ -144,28 +144,36 @@ double bin_search_max_task(
   int level
 			   )
 {
-	if(p<4) {
+	if(p<k) {
 	  level++;
-      int s=(p+4)/2;
-	  double a_max_1;, a_max_2;
+      int s=(p+k)/2;
+	  double a_max_1, a_max_2;
 
-	  #pragma omp task final(level>max_level) default(none) firstprivate(A,p,s,k,level) private(a_max_1, a_max_2)
-	  {
-		a_max_1 = bin_search_max_task(A, p, s, level);
-	  }
+	 #pragma omp task final(level > max_level) default(none) firstprivate(A, p,k,s,level) shared(a_max_1)
+	 {
+		 if (!omp_in_final())
+		 	a_max_1 = bin_search_max_task(A, p, s, level);
+		 else
+		 	a_max_1 = search_max(A,p,k);
+	 }
 
-
-	  #pragma omp task final(level>max_level) default(none) firstprivate(A,p,s,k,level) private(a_max_1, a_max_2)
-	  {
-		  a_max_2 = bin_search_max_task(A, s+1, k, level);
-	  }
+	 #pragma omp task final(level > max_level) default(none) firstprivate(A, p,k,s,level) shared(a_max_2)
+	 {
+		 if (!omp_in_final())
+		 	a_max_2 = bin_search_max_task(A, s+1, k, level);
+		else
+			a_max_2 = search_max(A,p,k);
+	 }
 
 
       //printf("p %d  k %d, maximal elements %lf, %lf\n", p, k, a_max_1, a_max_2);
 
-	  #pragma omp taskwait
 
-	  if(a_max_1 < a_max_2) return(a_max_2);
+	  #pragma omp taskwait
+	  if(a_max_1 < a_max_2){
+
+		  return(a_max_2);
+	  }
       else return(a_max_1);
 
   }
