@@ -151,11 +151,8 @@ void * thread_func1(void * arg_ptr) {
     x1 = id * dx * myN;
     f_val[0] = f(x1);
     for(i = 0; i < myN; i++) {
-        x2 = x1 + dx;
-        f_val[1] = f(x2);
-        loc_result += f_val[0] + f_val[1];
-        f_val[0] = f_val[1];
-        x1 = x2;
+        x1 = a = i*dx; x2 = x1 + dx;
+        loc_result += f(x1) + f(x2);
     }
 
     pthread_mutex_lock(&mutex);

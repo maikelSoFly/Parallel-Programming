@@ -1,3 +1,16 @@
+/**
+ * @Author: Mikołaj Stępniewski <maikel>
+ * @Date:   2015-12-09T23:48:22+01:00
+ * @Email:  mikolaj.stepniewski1@gmail.com
+ * @Filename: test_search_max_openmp.c
+ * @Last modified by:   maikel
+ * @Last modified time: 2017-12-17T16:58:56+01:00
+ * @License: Apache License  Version 2.0, January 2004
+ * @Copyright: Copyright © 2017 Mikołaj Stępniewski. All rights reserved.
+ */
+
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -5,7 +18,7 @@
 
 #include "search_max_openmp.h"
 
-#define WYMIAR 1000000
+#define WYMIAR 100000000
 #define ROZMIAR WYMIAR
 
 

@@ -1,3 +1,16 @@
+/**
+ * @Author: Mikołaj Stępniewski <maikel>
+ * @Date:   2015-12-10T00:05:04+01:00
+ * @Email:  mikolaj.stepniewski1@gmail.com
+ * @Filename: search_max_openmp.c
+ * @Last modified by:   maikel
+ * @Last modified time: 2017-12-17T17:04:52+01:00
+ * @License: Apache License  Version 2.0, January 2004
+ * @Copyright: Copyright © 2017 Mikołaj Stępniewski. All rights reserved.
+ */
+
+
+
 #include<stdlib.h>
 #include<stdio.h>
 #include<math.h>
@@ -87,9 +100,9 @@ double search_max_openmp_task(
 			if(a_max_local < A[i]) a_max_local = A[i];
 		}
 
-		#pragma omp critical
-		{
-			if(a_max < a_max_local) { a_max = a_max_local; }
+		if(a_max < a_max_local) {
+			#pragma omp critical
+			a_max = a_max_local;
 		}
 
 	} // end task definition
@@ -135,7 +148,7 @@ double bin_search_max(
 
 
 /*** single task for parallel binary search (array not sorted) - openmp ***/
-#define  max_level 4
+#define  max_level 19
 
 double bin_search_max_task(
   double* A,
@@ -145,35 +158,32 @@ double bin_search_max_task(
 			   )
 {
 	if(p<k) {
+
 	  level++;
+
       int s=(p+k)/2;
 	  double a_max_1, a_max_2;
 
-	 #pragma omp task final(level > max_level) default(none) firstprivate(A, p,k,s,level) shared(a_max_1)
+
+	 #pragma omp task final(level > max_level) default(none) firstprivate(A, p,k,s,level) shared(a_max_1, a_max_2)
 	 {
-		 if (!omp_in_final())
+	 	if (!omp_in_final())
 		 	a_max_1 = bin_search_max_task(A, p, s, level);
-		 else
-		 	a_max_1 = search_max(A,p,k);
+		else
+		 	a_max_1 = search_max(A,p,s);
 	 }
 
-	 #pragma omp task final(level > max_level) default(none) firstprivate(A, p,k,s,level) shared(a_max_2)
+	 #pragma omp task final(level > max_level) default(none) firstprivate(A, p,k,s,level) shared(a_max_1, a_max_2)
 	 {
-		 if (!omp_in_final())
+		if (!omp_in_final())
 		 	a_max_2 = bin_search_max_task(A, s+1, k, level);
 		else
-			a_max_2 = search_max(A,p,k);
+			a_max_2 = search_max(A,s+1,k);
 	 }
 
-
-      //printf("p %d  k %d, maximal elements %lf, %lf\n", p, k, a_max_1, a_max_2);
-
-
 	  #pragma omp taskwait
-	  if(a_max_1 < a_max_2){
-
+	  if(a_max_1 < a_max_2)
 		  return(a_max_2);
-	  }
       else return(a_max_1);
 
   }
