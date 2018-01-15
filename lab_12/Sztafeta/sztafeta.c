@@ -4,7 +4,7 @@
 
 #include "mpi.h"
 
-#define FINISH 0
+#define FINISH 1
 
 int main( int argc, char** argv ){
 
